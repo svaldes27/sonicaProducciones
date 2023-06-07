@@ -16,6 +16,14 @@ class CreateEventosTable extends Migration
         Schema::create('evento', function (Blueprint $table) {
             $table->increments('id');
             $table->date('fecha');
+
+            $table->unsignedBigInteger('create_locals_table');
+            $table->unsignedBigInteger('create_detalle_equipamiento_table');
+            $table->unsignedBigInteger('create_bandas_table');
+
+            $table->foreing('create_locals_table')->references('id')->on('create_locals_table');
+            $table->foreing('create_detalle_equipamiento_table')->references('id')->on('create_detalle_equipamiento_table');
+            $table->foreing('create_bandas_table')->references('id')->on('create_bandas_table');
             $table->timestamps();
         });
     }

@@ -16,6 +16,12 @@ class CreateBandasTable extends Migration
         Schema::create('banda', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+
+            $table->unsignedBigInteger('create_representante_table');
+            $table->unsignedBigInteger('create_eventos_table');
+
+            $table->foreing('create_representante_table')->references('id')->on('create_representante_table');
+            $table->foreing('create_eventos_table')->references('id')->on('create_eventos_table');
             $table->timestamps();
         });
     }

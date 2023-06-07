@@ -17,6 +17,11 @@ class CreateLocalsTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('direccion');
+
+            $table->unsignedBigInteger('create_ciudad_table');
+            $table->unsignedBigInteger('create_region_table');
+            $table->foreing('create_ciudad_table')->references('id')->on('create_ciudad_table');
+            $table->foreing('create_region_table')->references('id')->on('create_region_table');
             $table->timestamps();
         });
     }
