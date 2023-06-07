@@ -13,6 +13,10 @@ use App\Http\Controllers\LocalController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+
+    return view('auth.login');
+});
 
 Auth::routes();
 
