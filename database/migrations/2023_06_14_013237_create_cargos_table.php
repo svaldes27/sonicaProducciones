@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDetalleRepresentanteTable extends Migration
+class CreateCargosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateDetalleRepresentanteTable extends Migration
      */
     public function up()
     {
-        Schema::create('representante', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('nombre');
+        Schema::create('cargos', function (Blueprint $table) {
+            $table->id();
+            $table->string('cargo');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class CreateDetalleRepresentanteTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('');
+        Schema::dropIfExists('cargos');
     }
 }

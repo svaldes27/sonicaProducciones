@@ -14,9 +14,9 @@
 
 </div>
 @endif
-<h1>Local</h1>
+<h1>Agenda</h1>
 
-<a class="btn btn-success" href="{{ url('/formularioVista/create') }}">Registrar nuevo producto </a>
+<a class="btn btn-success" href="{{ url('/resources/views/formularioVista/crearBanda') }}">Registrar nuevo producto </a>
 <br>
 <br>
 <table class="table table-light">

@@ -17,14 +17,15 @@ class CreateEventosTable extends Migration
             $table->increments('id');
             $table->date('fecha');
 
-            $table->unsignedBigInteger('create_locals_table');
-            $table->unsignedBigInteger('create_detalle_equipamiento_table');
-            $table->unsignedBigInteger('create_bandas_table');
+            //$table->integer('local_id')->nullable()->unsigned();
+            //$table->integer('detalle_id')->nullable()->unsigned();
+            //$table->integer('banda_id')->nullable()->unsigned();
 
-            $table->foreing('create_locals_table')->references('id')->on('create_locals_table');
-            $table->foreing('create_detalle_equipamiento_table')->references('id')->on('create_detalle_equipamiento_table');
-            $table->foreing('create_bandas_table')->references('id')->on('create_bandas_table');
-            $table->timestamps();
+                        
+            //$table->foreign('local_id')->references('id')->on('create_locals_table');
+            //$table->foreign('detalle_id')->references('id')->on('create_detalle_equipamiento_table');
+            //$table->foreign('banda_id')->references('id')->on('create_bandas_table');
+            //$table->timestamps();
         });
     }
 

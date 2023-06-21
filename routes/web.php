@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocalController;
+use App\Http\Controllers\BandaController;
+use App\Http\Controllers\RepresentanteController;
+use App\Http\Controllers\AgendaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +27,18 @@ Auth::routes();
 route::group(['middelware' => 'auth'], function(){
     
     
-    Route::get('/local', [LocalController::class, 'index']);
+    Route::get('/home', [LocalController::class, 'index']);
+    Route::get('/banda', [BandaController::class, 'index']);
+
+
+    Route::get('/banda/lista', [BandaController::class, 'lista']);
+
+
+    Route::get('/cliente/lista', [RepresentanteController::class, 'lista']);
+
+
+    Route::get('/agenda/lista', [AgendaController::class, 'lista']);
+    
 
 });
 

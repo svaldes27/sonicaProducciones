@@ -15,14 +15,19 @@ class CreateLocalsTable extends Migration
     {
         Schema::create('local', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('ciudad_id')->nullable()->unsigned();
+            $table->integer('region_id')->nullable()->unsigned();
             $table->string('nombre');
             $table->string('direccion');
 
-            $table->unsignedBigInteger('create_ciudad_table');
-            $table->unsignedBigInteger('create_region_table');
-            $table->foreing('create_ciudad_table')->references('id')->on('create_ciudad_table');
-            $table->foreing('create_region_table')->references('id')->on('create_region_table');
-            $table->timestamps();
+            
+            //$table->foreign('ciudad_id')->references('id')->on('ciudad');
+            //$table->foreign('region_id')->references('id')->on('region');
+
+            
+            //$table->foreign('2023_06_05_053917_create_ciudad_table')->references('id')->on('2023_06_05_053917_create_ciudad_table');
+            //$table->foreign('2023_06_05_053917_create_region_table')->references('id')->on('2023_06_05_053917_create_region_table');
+            //$table->timestamps();
         });
     }
 

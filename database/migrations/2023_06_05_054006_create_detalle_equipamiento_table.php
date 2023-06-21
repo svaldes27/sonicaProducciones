@@ -15,12 +15,17 @@ class CreateDetalleEquipamientoTable extends Migration
     {
         Schema::create('detalle_equipamiento', function (Blueprint $table) {
             $table->increments('id');
+            $table->String('instrumento');
+            $table->String('iluminacion');
+            $table->String('amplificacion');
+            $table->String('comida');
 
-            $table->unsignedBigInteger('create_equipamiento_table');
-            $table->unsignedBigInteger('create_bandas_table');
+            //$table->integer('equipamiento_id')->nullable()->unsigned();
+            //$table->integer('banda_id')->nullable()->unsigned();
 
-            $table->foreing('create_equipamiento_table')->references('id')->on('create_equipamiento_table');
-            $table->foreing('create_bandas_table')->references('id')->on('create_bandas_table');
+
+            //$table->foreign('equipamiento_id')->references('id')->on('create_equipamiento_table');
+            //$table->foreign('banda_id')->references('id')->on('create_bandas_table');
             $table->timestamps();
         });
     }
