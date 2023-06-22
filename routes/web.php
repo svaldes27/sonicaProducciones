@@ -6,6 +6,7 @@ use App\Http\Controllers\BandaController;
 use App\Http\Controllers\RepresentanteController;
 use App\Http\Controllers\AgendaController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,23 +26,39 @@ Auth::routes();
 
 //Route::get('/', function () {return view('welcome');});
 route::group(['middelware' => 'auth'], function(){
-    
-    
-    Route::get('/home', [LocalController::class, 'index']);
-    Route::get('/banda', [BandaController::class, 'index']);
 
 
-    Route::get('/banda/lista', [BandaController::class, 'lista']);
+Route::get('/home', [LocalController::class, 'index']);
+Route::get('/banda', [BandaController::class, 'index']);
 
 
-    Route::get('/cliente/lista', [RepresentanteController::class, 'lista']);
+Route::get('/banda/lista', [BandaController::class, 'lista']);
+Route::get('/banda/create', [BandaController::class, 'create']);
 
 
-    Route::get('/agenda/lista', [AgendaController::class, 'lista']);
-    
+
+Route::post('/representante', [RepresentanteController::class, 'store'])->name('representante.store');
+Route::get('/representante/create', [RepresentanteController::class, 'create'])->name('representante.create');
+Route::get('/representante/lista', [RepresentanteController::class, 'lista']);
+Route::get('/representante/{id}/edit', [RepresentanteController::class, 'edit']);
+Route::delete('/representante/{id}', [RepresentanteController::class, 'destroy'])->name('representante.destroy');
+Route::get('/representante/editar/{id}', [RepresentanteController::class, 'edit']);
+Route::put('/representante/{id}', [RepresentanteController::class, 'update'])->name('representante.update');
+
+
+
+
+
+Route::get('/agenda/lista', [AgendaController::class, 'lista']);
+
+Route::get('/local/lista', [LocalController::class, 'lista']);
+ Route::get('/local/create', [LocalController::class, 'create']);
+
+
+
 
 });
 
 
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

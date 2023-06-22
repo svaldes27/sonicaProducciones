@@ -15,10 +15,9 @@ class CreateLocalsTable extends Migration
     {
         Schema::create('local', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('ciudad_id')->nullable()->unsigned();
-            $table->integer('region_id')->nullable()->unsigned();
             $table->string('nombre');
             $table->string('direccion');
+            $table->integer('comuna_id')->nullable()->unsigned();
 
             
             //$table->foreign('ciudad_id')->references('id')->on('ciudad');

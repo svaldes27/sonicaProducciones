@@ -16,8 +16,9 @@ class CreateBandasTable extends Migration
         Schema::create('banda', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->string('imagen');
             $table->integer('representante_id')->nullable()->unsigned();
-            $table->integer('eventos_id')->nullable()->unsigned();
+            
             
 
             //$table->foreign('representante_id')->references('id')->on('detalle_representante');

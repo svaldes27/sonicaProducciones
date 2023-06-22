@@ -13,9 +13,11 @@ class CreateDetalleRepresentanteTable extends Migration
      */
     public function up()
     {
-        Schema::create('representante', function (Blueprint $table) {
+        Schema::create('detalle_representante', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre');
+            $table->string('email');
+            $table->integer('contacto');
             $table->timestamps();
         });
     }

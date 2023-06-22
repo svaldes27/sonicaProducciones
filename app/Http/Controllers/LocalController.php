@@ -35,7 +35,7 @@ class LocalController extends Controller
      */
     public function create()
     {
-        return view('formulario.crearLocal');
+        return view('formularioVista.crearLocal');
     }
 
     /**
@@ -56,7 +56,7 @@ class LocalController extends Controller
         // Guarda el local en la base de datos
         $local->save();
 
-        // redirige a una pagina guardado con exito 
+        // redirige a una pagina guardado con exito
         return redirect()->back()->with('success', 'Los datos se han guardado correctamente');
     }
 

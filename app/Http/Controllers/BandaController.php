@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Banda;
 use Illuminate\Http\Request;
+use App\Models\Representante;
+
 
 class BandaController extends Controller
 {
@@ -15,15 +17,15 @@ class BandaController extends Controller
         //$categoriaId = $request->categoria;
        // $datos['productos'] = null;
         //if($categoriaId){
-            
+
           //  $datos['productos']=producto::select('*')->where('categoria', '=',  $categoriaId )->orderBy('id', 'DESC')->paginate('100');
         //}
         //else{
           //  $datos['productos']=producto::select('*')->orderBy('id', 'DESC')->paginate('100');
         //}
-        
+
         return view('producto.banda');
-        
+
     }
 
 
@@ -46,7 +48,9 @@ class BandaController extends Controller
      */
     public function create()
     {
-        //
+         $representantes = Representante::pluck('nombre', 'id');
+    return view('formularioVista.crearBanda', compact('representantes'));
+   
     }
 
     /**

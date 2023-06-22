@@ -15,10 +15,10 @@ class CreateDetalleEquipamientoTable extends Migration
     {
         Schema::create('detalle_equipamiento', function (Blueprint $table) {
             $table->increments('id');
-            $table->String('instrumento');
-            $table->String('iluminacion');
-            $table->String('amplificacion');
-            $table->String('comida');
+            $table->String('evento');
+            $table->String('cantidad');
+            $table->integer('evento_id')->nullable()->unsigned();
+            $table->integer('equipamiento_id')->nullable()->unsigned();
 
             //$table->integer('equipamiento_id')->nullable()->unsigned();
             //$table->integer('banda_id')->nullable()->unsigned();

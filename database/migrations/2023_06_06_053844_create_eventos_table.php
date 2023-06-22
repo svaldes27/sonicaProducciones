@@ -15,6 +15,10 @@ class CreateEventosTable extends Migration
     {
         Schema::create('evento', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('local_id')->nullable()->unsigned();
+            $table->integer('banda_id')->nullable()->unsigned();
+            $table->integer('detalleEquipamiento_id')->nullable()->unsigned();
+            $table->time('hora');
             $table->date('fecha');
 
             //$table->integer('local_id')->nullable()->unsigned();

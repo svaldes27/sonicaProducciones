@@ -3,103 +3,109 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Representante;
+use Illuminate\Support\facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class RepresentanteController extends Controller
 {
-
-
-    
-    public function lista(Request $request)
-    {
-        //$categoriaId = $request->categoria;
-       // $datos['productos'] = null;
-        //if($categoriaId){
-            
-          //  $datos['productos']=producto::select('*')->where('categoria', '=',  $categoriaId )->orderBy('id', 'DESC')->paginate('100');
-        //}
-        //else{
-          //  $datos['productos']=producto::select('*')->orderBy('id', 'DESC')->paginate('100');
-        //}
-        
-        return view('producto.representante');
-        
-    }
-
-
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        return view('formularioVista.crearRepresentante');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        // Validar los datos ingresados en el formulario
+        $request->validate([
+            'nombre' => 'required',
+            'email' => 'required|email',
+            'contacto' => 'required',
+        ]);
+
+        // Obtener los datos del formulario
+        $nombre = $request->input('nombre');
+        $email = $request->input('email');
+        $contacto = $request->input('contacto');
+
+        // Crear una nueva instancia del modelo Representante
+        $representante = new Representante();
+        $representante->nombre = $nombre;
+        $representante->email = $email;
+        $representante->contacto = $contacto;
+
+        // Guardar los datos en la base de datos
+        $representante->save();
+
+        // Redirigir a una página de éxito o mostrar un mensaje de éxito
+        return redirect()->back()->with('success', 'Representante creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
+    public function lista(Request $request)
+    {   
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        //trae los datos de la base de datos
+        $representante = Representante::all();
+        
+        return view('producto.representante', ['representante' => $representante]);
+
+       
+
+        //return view('producto.representante', $datos);
+
+    }
+
     public function edit($id)
     {
-        //
+        $representante = Representante::findOrFail($id);
+        return view('formularioVista.editarRepresentante', compact('representante'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        // Validar los datos ingresados en el formulario de edición
+        $request->validate([
+            'nombre' => 'required',
+            'email' => 'required',
+            'contacto' => 'required',
+        ]);
+    
+        // Obtener los datos del formulario
+        $nombre = $request->input('nombre');
+        $email = $request->input('email');
+        $contacto = $request->input('contacto');
+    
+        // Buscar el representante por su ID
+        $representante = Representante::findOrFail($id);
+    
+        // Actualizar los datos del representante
+        $representante->nombre = $nombre;
+        $representante->email = $email;
+        $representante->contacto = $contacto;
+    
+        // Guardar los cambios en la base de datos
+        $representante->save();
+    
+        // Redirigir a la lista de representantes con un mensaje de éxito
+        return redirect('/representante/lista')->with('success', 'El representante ha sido actualizado correctamente.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function destroy($id)
     {
-        //
+        $representante = Representante::findOrFail($id);
+        $representante->delete();
+    
+        return redirect('/representante/lista')->with('success', 'El representante ha sido eliminado correctamente.');
     }
+    
+
 }
