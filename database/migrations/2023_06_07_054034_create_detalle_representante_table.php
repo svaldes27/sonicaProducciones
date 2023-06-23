@@ -17,7 +17,7 @@ class CreateDetalleRepresentanteTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('email');
-            $table->integer('contacto');
+            $table->bigInteger('contacto');
             $table->timestamps();
         });
     }

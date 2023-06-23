@@ -32,11 +32,19 @@ Route::get('/home', [LocalController::class, 'index']);
 Route::get('/banda', [BandaController::class, 'index']);
 
 
+// Rutas del controlador BandaController
 Route::get('/banda/lista', [BandaController::class, 'lista']);
 Route::get('/banda/create', [BandaController::class, 'create']);
+Route::post('/banda', [BandaController::class, 'store'])->name('banda.store');
+Route::get('/banda/create', [BandaController::class, 'create'])->name('banda.create');
+Route::get('/banda/lista', [BandaController::class, 'lista'])->name('banda.lista');
+Route::delete('/banda/borrar/{id}', [BandaController::class, 'destroy'])->name('banda.destroy');
+Route::get('/banda/{id}/edit', [BandaController::class, 'edit'])->name('banda.edit');
+Route::put('/banda/{id}', [BandaController::class, 'update'])->name('banda.update');
+Route::get('/banda/editar/{id}', [BandaController::class, 'edit'])->name('banda.editar');
 
 
-
+// Rutas del controlador RepresentanteController
 Route::post('/representante', [RepresentanteController::class, 'store'])->name('representante.store');
 Route::get('/representante/create', [RepresentanteController::class, 'create'])->name('representante.create');
 Route::get('/representante/lista', [RepresentanteController::class, 'lista']);

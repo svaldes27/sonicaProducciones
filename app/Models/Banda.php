@@ -9,8 +9,9 @@ class Banda extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id';
-    protected $table = 'bandas';
-    
+    protected $table = 'banda';
+    public $timestamps = false;
+
     public function representante()
     {
         //return $this->hasMany(Representante::class);

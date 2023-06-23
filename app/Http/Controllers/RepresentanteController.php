@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class RepresentanteController extends Controller
 {
     public function index()
-    {
-        //
-    }
+{
+    $representantes = Representante::paginate(10);
+
+    return view('producto.representante')->with('representantes',$representantes);
+}
+
 
     public function create()
     {
@@ -43,7 +46,7 @@ class RepresentanteController extends Controller
         $representante->save();
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
-        return redirect()->back()->with('success', 'Representante creado exitosamente.');
+        return redirect('/representante/lista')->with('mensaje', 'Representante creado exitosamente.');
     }
 
     public function show($id)
@@ -96,7 +99,7 @@ class RepresentanteController extends Controller
         $representante->save();
     
         // Redirigir a la lista de representantes con un mensaje de éxito
-        return redirect('/representante/lista')->with('success', 'El representante ha sido actualizado correctamente.');
+        return redirect('/representante/lista')->with('mensaje', 'El representante ha sido actualizado correctamente.');
     }
     
     public function destroy($id)
@@ -104,7 +107,7 @@ class RepresentanteController extends Controller
         $representante = Representante::findOrFail($id);
         $representante->delete();
     
-        return redirect('/representante/lista')->with('success', 'El representante ha sido eliminado correctamente.');
+        return redirect('/representante/lista')->with('mensaje', 'El representante ha sido eliminado correctamente.');
     }
     
 
