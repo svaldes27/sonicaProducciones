@@ -19,7 +19,7 @@ class RepresentanteController extends Controller
 
     public function create()
     {
-        return view('formularioVista.crearRepresentante');
+        return view('formularioVista.crearRepresentante ');
     }
 
     public function store(Request $request)
