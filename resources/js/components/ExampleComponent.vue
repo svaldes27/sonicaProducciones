@@ -4,6 +4,10 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">Example Component</div>
+                    const mix = require('laravel-mix');
+
+                    mix.js('resources/js/app.js', 'public/js')
+                    .vue();
 
                     <div class="card-body">
                         I'm an example component.

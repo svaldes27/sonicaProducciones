@@ -57,7 +57,7 @@ Route::put('/representante/{id}', [RepresentanteController::class, 'update'])->n
 
 
 
-Route::get('/agenda/lista', [AgendaController::class, 'lista']);
+Route::get('/agenda/lista', [AgendaController::class, 'index']);
 
 Route::get('/local/lista', [LocalController::class, 'lista']);
  Route::get('/local/create', [LocalController::class, 'create']);

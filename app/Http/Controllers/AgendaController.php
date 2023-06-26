@@ -12,17 +12,9 @@ class AgendaController extends Controller
     
     public function lista(Request $request)
     {
-        //$categoriaId = $request->categoria;
-       // $datos['productos'] = null;
-        //if($categoriaId){
-            
-          //  $datos['productos']=producto::select('*')->where('categoria', '=',  $categoriaId )->orderBy('id', 'DESC')->paginate('100');
-        //}
-        //else{
-          //  $datos['productos']=producto::select('*')->orderBy('id', 'DESC')->paginate('100');
-        //}
         
-        return view('producto.agenda');
+        
+        //return view('producto.agenda');
         
     }
 
@@ -34,7 +26,7 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        //
+        return view('producto.agenda');
     }
 
     /**
