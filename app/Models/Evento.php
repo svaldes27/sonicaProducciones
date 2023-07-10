@@ -16,13 +16,9 @@ class Evento extends Model
         return $this->hasMany(Local::class);
     }
 
-    public function detalleEquipamiento()
+    public function detallesEquipamiento()
     {
-        //return $this->hasMany(Equipamiento::class);
+        return $this->hasMany(DetalleEquipamiento::class);
     }
 
-    public function banda()
-    {
-        //return $this->hasMany(Banda::class);
-    }
 }

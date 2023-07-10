@@ -13,5 +13,9 @@ class Representante extends Model
     protected $table = 'detalle_representante';
 
     protected $fillable = ['nombre', 'email', 'contacto'];
-}
 
+    public function banda()
+    {
+        return $this->hasMany(Banda::class);
+    }
+}

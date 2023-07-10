@@ -6,36 +6,29 @@ use App\Models\Banda;
 use Illuminate\Http\Request;
 use App\Models\Representante;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 
 class BandaController extends Controller
 {
-
-
-
     public function lista(Request $request)
     {
-        $banda = Banda::orderBy('id', 'DESC')->paginate(100);
-        return view('producto.banda', compact('banda'));
+        $bandas = Banda::with('representante')->orderBy('id', 'DESC')->get();
+
+        return view('producto.banda', ['bandas' => $bandas]);
     }
-
-
-
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-{
-    //$banda = Banda::orderBy('id', 'DESC')->paginate(3);
-    $banda = Banda::paginate(5);
-    
-    
-    
-    return view('producto.banda', ['banda' => $banda]);
-}
+        public function index()
+    {
+        $bandas = Banda::all();
+        return view('producto.banda')->with('bandas',$bandas);
+    }
+
 
 
     /**
@@ -46,8 +39,10 @@ class BandaController extends Controller
     public function create()
     {
         $representantes = Representante::pluck('nombre', 'id');
-        return view('formularioVista.crearBanda', compact('representantes'));
+        $banda = new Banda(); 
+        return view('formularioVista.crearBanda', compact('representantes','banda'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -59,6 +54,7 @@ class BandaController extends Controller
     {
         
         // Obtener los datos del formulario
+        //$request->hasFile('imagen');
         $nombre = $request->input('nombre');
         $representanteId = $request->input('representante');
         $imagen = $request->file('imagen');
@@ -68,15 +64,20 @@ class BandaController extends Controller
         $imagen->storeAs('public', $imagenNombre);
 
         // Crear una nueva instancia del modelo Banda
-        $banda = new Banda();
-        $banda->nombre = $nombre;
-        $banda->imagen = Storage::url($imagenNombre); // Guardar la URL de la imagen en la base de datos
-        $banda->representante_id = $representanteId;
-        
+        $bandas = new Banda();
+        $bandas->nombre = $nombre;
+        $bandas->imagen = $imagenNombre;
+        //$bandas->representante_id = $data['representante'];
+        //$bandas->representante_id = $representanteId;
 
+        // Verificar si se seleccionó un representante
+        if ($representanteId) {
+            $representante = Representante::findOrFail($representanteId);
+            $bandas->representante()->associate($representante);
+        }
         
         // Guardar la banda en la base de datos
-        $banda->save();
+        $bandas->save();
        
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
@@ -124,36 +125,37 @@ class BandaController extends Controller
     public function update(Request $request, $id)
     {
         // Validar los datos ingresados en el formulario de edición
-    $request->validate([
+        $request->validate([
         'nombre' => 'required',
         'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         'representante' => 'required',
-    ]);
+        ]);
 
-    // Obtener los datos del formulario
-    $nombre = $request->input('nombre');
-    $representanteId = $request->input('representante');
-    $imagen = $request->file('imagen');
+        // Obtener los datos del formulario
+        $nombre = $request->input('nombre');
+        $representanteId = $request->input('representante');
+        $imagen = $request->file('imagen');
 
-    // Buscar la banda por su ID
-    $banda = Banda::findOrFail($id);
+        // Buscar la banda por su ID
+        $bandas = Banda::findOrFail($id);
 
-    // Actualizar los datos de la banda
-    $banda->nombre = $nombre;
-    $banda->representante_id = $representanteId;
+        // Actualizar los datos de la banda
+        $bandas->nombre = $nombre;
+        $bandas->representante_id = $representanteId;
 
-    // Si se proporciona una nueva imagen, guardarla en el sistema de archivos
-    if ($imagen) {
-        $imagenNombre = $imagen->getClientOriginalName();
-        $imagen->storeAs('public', $imagenNombre);
-        $banda->imagen = Storage::url($imagenNombre);
-    }
+        // Si se proporciona una nueva imagen, guardarla en el sistema de archivos
+        if ($imagen) {
+            $imagenNombre = $imagen->getClientOriginalName();
+            $imagen->storeAs('public', $imagenNombre);
+            $bandas->imagen = $imagenNombre;
+        }
 
-    // Guardar los cambios en la base de datos
-    $banda->save();
 
-    // Redirigir a la lista de banda con un mensaje de éxito
-    return redirect('/banda/lista')->with('mensaje', 'Banda actualizada exitosamente.');
+        // Guardar los cambios en la base de datos
+        $bandas->save();
+
+        // Redirigir a la lista de banda con un mensaje de éxito
+        return redirect('/banda/lista')->with('mensaje', 'Banda actualizada exitosamente.');
 
     }
 
@@ -166,13 +168,13 @@ class BandaController extends Controller
     public function destroy($id)
     {
         // Buscar la banda por su ID
-        $banda = Banda::findOrFail($id);
+        $bandas = Banda::findOrFail($id);
 
         // Eliminar la imagen asociada en el sistema de archivos
-        Storage::delete($banda->imagen);
+        Storage::delete($bandas->imagen);
 
         // Eliminar el registro de la banda de la base de datos
-        $banda->delete();
+        $bandas->delete();
 
         // Redirigir a la lista de banda con un mensaje de éxito
         return redirect('/banda/lista')->with('mensaje', 'Banda eliminada exitosamente.');

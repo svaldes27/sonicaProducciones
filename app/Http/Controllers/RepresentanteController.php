@@ -10,11 +10,20 @@ use Illuminate\Support\Facades\Auth;
 class RepresentanteController extends Controller
 {
     public function index()
-{
-    $representantes = Representante::paginate(10);
+    {
+        
+        $representante = Representante::all();
+        return view('producto.representante')->with('representante',$representante);
+    }
 
-    return view('producto.representante')->with('representantes',$representantes);
-}
+    public function lista(Request $request)
+    {   
+
+        //trae los datos de la base de datos
+        $representante = Representante::paginate(100);
+        return view('producto.representante', ['representante' => $representante]);
+
+    }
 
 
     public function create()
@@ -53,19 +62,7 @@ class RepresentanteController extends Controller
     {
         //
     }
-    public function lista(Request $request)
-    {   
-
-        //trae los datos de la base de datos
-        $representante = Representante::all();
-        
-        return view('producto.representante', ['representante' => $representante]);
-
-       
-
-        //return view('producto.representante', $datos);
-
-    }
+    
 
     public function edit($id)
     {

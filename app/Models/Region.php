@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Region extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id';
-    protected $table = 'region';
+    protected $primaryKey = 'region_id';
+    protected $table = 'regiones';
+
+    public function provincia()
+    {
+        return $this->hasMany(Provincia::class, 'region_id');
+    }
     
+
+
 }

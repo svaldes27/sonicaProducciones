@@ -11,13 +11,15 @@ class DetalleEquipamiento extends Model
     protected $primaryKey = 'id';
     protected $table = 'detalle_equipamiento';
     
-    public function equipamiento()
+    public function evento()
     {
-        //return $this->hasMany(Equipamiento::class);
+        return $this->belongsTo(Evento::class);
     }
 
-    public function banda()
+    public function equipamiento()
     {
-        //return $this->hasMany(Banda::class);
+        return $this->belongsTo(Equipamiento::class);
     }
+
+
 }

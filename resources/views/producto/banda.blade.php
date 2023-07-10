@@ -1,54 +1,59 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card">
+    <div class="card-body">
+        <div class="container">
+            @if(Auth::check())
+                @if(Session::has('mensaje'))
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>{{ Auth::user()->name }}</strong>
+                        {{ Session::get('mensaje') }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+            @endif
 
-<div class="container">
+            <h1>Banda</h1>
 
-@if(Auth::check())
-    @if(Session::has('mensaje'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ Auth::user()->name }}</strong>
-            {{ Session::get('mensaje') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <a class="btn btn-success" href="{{ url('/banda/create') }}">Registrar nueva banda</a>
+            <br>
+            <br>
+            <div class="card">
+                <table class="table table-bordered">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Nombre</th>
+                            <th>Representante</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($bandas as $banda)
+                            <tr>
+                                <td><img src="{{ asset('storage/' .$banda->imagen) }}" width="100" /></td>
+                                <td>{{ $banda->nombre }}</td>
+                                <td>{{ $banda->representante->nombre ?? 'Sin representante' }}</td>
+
+                                <td>
+                                    <!-- editar -->
+                                    <a class="btn btn-warning" href="{{ url('/banda/editar', $banda->id) }}">Editar</a>
+
+
+                                    <!-- borrar -->
+                                    <form action="{{ route('banda.destroy', $banda->id) }}" class="d-inline" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input class="btn btn-danger" type="submit" onclick="return confirm('¿Estás seguro de que deseas borrar esta banda?')" value="Borrar">
+                                    </form>
+                                </td>
+                            </tr>              
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
-    @endif
-@endif
-
-<h1>Banda</h1>
-
-<a class="btn btn-success" href="{{ url('/banda/create') }}">Registrar nuevo producto </a>
-<br>
-<br>
-<table class="table table-light">
-    <thead class="thead-light">
-        <tr>
-            <td>Imagen</td>
-            <td>Nombre</td>
-            <td>ID Representante</td>
-            <td>Acciones</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($banda as $banda)
-        <tr>
-            <td>{{ $banda->imagen }}</td>
-            <td>{{ $banda->nombre }}</td>
-            <td>{{ $banda->representante_id}}</td>
-           
-            <td>
-                <!--editar-->
-                <a class="btn btn-warning" href="{{ url('/banda/editar/' . $banda->id) }}">Editar</a>
-
-                <!--borrar-->
-                <form action="{{ url('/banda/borrar/' . $banda->id) }}" class="d-inline" method="post">
-                    @csrf
-                    {{ method_field('DELETE')}}
-                    <button class="btn btn-danger" type="submit" onclick="return confirm('¿Estás seguro de que deseas borrar esta banda?')">Borrar</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table>
+    </div>
 </div>
 @endsection

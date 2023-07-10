@@ -11,4 +11,9 @@ class Equipamiento extends Model
     protected $primaryKey = 'id';
     protected $table = 'equipamiento';
     
+    public function detalleEquipamiento()
+    {
+        return $this->hasOne(DetalleEquipamiento::class);
+    }
+
 }

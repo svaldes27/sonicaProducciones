@@ -10,15 +10,11 @@ class Banda extends Model
     use HasFactory;
     protected $primaryKey = 'id';
     protected $table = 'banda';
+
     public $timestamps = false;
 
-    public function representante()
+        public function representante()
     {
-        //return $this->hasMany(Representante::class);
-    }
-
-    public function evento()
-    {
-        //return $this->hasMany(Evento::class);
+        return $this->belongsTo(Representante::class);
     }
 }

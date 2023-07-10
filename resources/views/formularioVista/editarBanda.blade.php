@@ -25,6 +25,7 @@
         <input type="file" class="form-control" name="imagen">
     </div>
 
-    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <button type="submit" class="btn btn-success">Guardar Cambios</button>
+    <a class="btn btn-primary" href="{{ url('/banda/lista') }}">Cancelar</a>
 </form>
 @endsection
