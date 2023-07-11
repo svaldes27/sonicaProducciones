@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Evento;
 use App\Models\Banda;
 use App\Models\local;
+use App\Models\Equipamiento;
+
 
 class AgendaController extends Controller
 {
@@ -16,8 +18,10 @@ class AgendaController extends Controller
     public function lista(Request $request)
     {
         
+        $local = local::pluck('nombre', 'id');
         
-        return view('producto.agenda');
+        return view('producto.agenda',compact('local'));
+        
         
     }
 
@@ -29,7 +33,9 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        return view('producto.agenda');
+        $local = local::pluck('nombre', 'id');
+        $banda = Banda::pluck('nombre', 'id');
+        return view('producto.agenda',compact('banda','local'));
     }
 
     /**
@@ -41,7 +47,8 @@ class AgendaController extends Controller
     {
         $local = local::pluck('nombre', 'id');
         $banda = Banda::pluck('nombre', 'id');
-        return view('formularioVista.crearEvento', compact('banda', 'local'));
+        $equipamiento = Equipamiento::pluck('nombre', 'id');
+        return view('formularioVista.crearEvento', compact('banda', 'local', 'equipamiento'));
     }
 
     /**
@@ -52,36 +59,40 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //obtener input del formulario views/formularioVista/formEvento
-        // Obtener los datos del formulario
-        //$request->hasFile('imagen');
-        //local banda
         $localId = $request->input('local');
         $bandaId = $request->input('banda');
+        $equipamientoID = $request->input('equipamiento');
         $fecha = $request->input('fecha');
+        $hora = $request->input('hora');
 
         // Crear una nueva instancia del modelo evento
         $eventos = new Evento();
-        //$bandas->representante_id = $data['representante'];
-        //$bandas->representante_id = $representanteId;
+        
+        // Verificar si se seleccionó un representante
+        if ($localId) {
+            $local = Local::findOrFail($localId);
+            $eventos->local()->associate($local);
+        }
 
         // Verificar si se seleccionó una banda
         if ($bandaId) {
             $banda = Banda::findOrFail($bandaId);
             $eventos->banda()->associate($banda);
         }
-        // Verificar si se seleccionó un representante
-        if ($localId) {
-            $local = Local::findOrFail($localId);
-            $eventos->local()->associate($local);
+
+        if($equipamientoID){
+            $equipamiento = Equipamiento::findOrFail($equipamientoID);
+            $eventos->equipamiento()->associate($equipamiento);
         }
+
+        $eventos->fecha = $fecha;
+        $eventos->hora = $hora;
         // Guardar la banda en la base de datos
         $eventos->save();
        
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
-        return redirect('/evento/lista')->with('mensaje', 'Evento creada exitosamente.');
-        
+        return redirect('/agenda/lista')->with('mensaje', 'Evento creada exitosamente.'); 
     }
 
     /**
@@ -92,7 +103,8 @@ class AgendaController extends Controller
      */
     public function show($id)
     {
-        //
+        $eventos = Evento::all();
+        return response()->json($eventos);
     }
 
     /**
