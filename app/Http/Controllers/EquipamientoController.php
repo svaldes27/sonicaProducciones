@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Equipamiento;
+use App\Models\Banda;
 
 class EquipamientoController extends Controller
 {
@@ -15,7 +16,8 @@ class EquipamientoController extends Controller
     public function index(Request $request)
     {
         $equipamientos = Equipamiento::all();
-        return view('producto.equipamiento', compact('equipamientos'));
+        $bandas = Banda::all();
+        return view('producto.equipamiento', compact('equipamientos', 'bandas'));
     }
 
     public function lista(Request $request)
@@ -141,6 +143,12 @@ class EquipamientoController extends Controller
         $equipamiento->delete();
 
         return redirect('/equipamiento/lista')->with('success', 'Equipamiento eliminado exitosamente.');
+    }
+
+    public function listaBanda(Request $request)
+    {
+        $bandas = Banda::all();
+        return view('producto.equipamiento')->with('bandas',$bandas);
     }
 }
 

@@ -59,8 +59,9 @@ Route::put('/representante/{id}', [RepresentanteController::class, 'update'])->n
 
 
 
-
+Route::post('/agenda', [AgendaController::class, 'store'])->name('agenda.store');
 Route::get('/agenda/lista', [AgendaController::class, 'index']);
+Route::get('/agenda/create', [AgendaController::class, 'create'])->name('agenda.create');
 
 
 
@@ -83,6 +84,7 @@ Route::get('/getComunas', [LocalController::class, 'getComunas'])->name('getComu
 Route::post('/equipamiento', [EquipamientoController::class, 'store'])->name('equipamiento.store');
 Route::get('/equipamiento/create', [EquipamientoController::class, 'create'])->name('equipamiento.create');
 Route::get('/equipamiento/lista', [EquipamientoController::class, 'lista']);
+Route::get('/equipamiento/listaBanda', [EquipamientoController::class, 'listaBanda']);
 Route::delete('/equipamiento/{id}', [EquipamientoController::class, 'destroy'])->name('equipamiento.destroy');
 Route::get('/equipamiento/editar/{id}', [EquipamientoController::class, 'edit']);
 Route::put('/equipamiento/{id}', [EquipamientoController::class, 'update'])->name('equipamiento.update');

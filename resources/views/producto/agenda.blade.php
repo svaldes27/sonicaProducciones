@@ -1,18 +1,25 @@
 @extends('layouts.app')
 @section('content')
 
+<div class="container" style="text-align: end">
+  <div class="jumbotron">
+    <a href="{{ url('/agenda/create') }}" class="btn btn-success">Agregar</a>
+  </div>
+  <br>
+</div>
+
 <div class="container">
     <div id="agenda">
         calendario
     </div>
 </div>
 
-    <!-- Button trigger modal -->
+    Button trigger modal 
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#evento">
       Launch
     </button>
-    
-  <!-- Modal -->
+    -->
+  <!-- Modal 
   <div class="modal fade" id="evento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -31,5 +38,5 @@
       </div>
     </div>
   </div>
-
+-->
 @endsection

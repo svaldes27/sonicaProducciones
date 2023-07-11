@@ -9,11 +9,18 @@ class Evento extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id';
-    protected $table = 'eventos';
+    protected $table = 'evento';
     
     public function local()
     {
-        return $this->hasMany(Local::class);
+        return $this->belongsTo(Local::class, 'local_id');
+        //return $this->hasMany(Local::class);
+    }
+
+    public function banda()
+    {
+        return $this->belongsTo(Banda::class, 'banda_id');
+        //return $this->hasMany(Banda::class);
     }
 
     public function detallesEquipamiento()

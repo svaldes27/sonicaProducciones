@@ -6,7 +6,7 @@
         <div class="container">
             @if(Auth::check())
                 @if(Session::has('mensaje'))
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" >
                         <strong>{{ Auth::user()->name }}</strong>
                         {{ Session::get('mensaje') }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
