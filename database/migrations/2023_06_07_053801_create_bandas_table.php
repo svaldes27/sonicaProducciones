@@ -19,11 +19,6 @@ class CreateBandasTable extends Migration
             $table->string('imagen')->nullable()->default('');
             $table->integer('representante_id')->nullable()->unsigned();
             
-            
-
-            //$table->foreign('representante_id')->references('id')->on('detalle_representante');
-            //$table->foreign('eventos_id')->references('id')->on('eventos');
-            //$table->timestamps();
         });
     }
 
