@@ -9,6 +9,7 @@ use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EquipamientoController;
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,12 +23,12 @@ use App\Http\Controllers\EquipamientoController;
 Route::get('/', function () {
 
     return view('auth.login');
-});
+})->middleware('guest');
 
 Auth::routes();
 
 //Route::get('/', function () {return view('welcome');});
-route::group(['middelware' => 'auth'], function(){
+Route::middleware(['auth'])->group(function () {
 
 
 Route::get('/home', [LocalController::class, 'index']);
