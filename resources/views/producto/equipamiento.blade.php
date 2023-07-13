@@ -14,8 +14,9 @@
                 @endif
                 
                 <h1>Equipamiento</h1>
-
+                @role('administrador')
                 <a href="{{ route('equipamiento.create') }}" class="btn btn-success mb-3">Agregar Equipamiento</a>
+                @endrole
                 <br><br>
 
                 @if ($equipamientos->isEmpty())
@@ -36,7 +37,9 @@
                                     <th>Otros Instrumentos</th>
                                     <th>Requisitos de Iluminación</th>
                                     <th>Requisitos Especiales</th>
+                                    @role('administrador')
                                     <th>Acciones</th>
+                                    @endrole
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,13 +55,14 @@
                                         <td>{{ $equipamiento->requisitos_iluminacion }}</td>
                                         <td>{{ $equipamiento->requisitos_especiales }}</td>
                                         <td>
-                                            
+                                        @role('administrador')
                                             <a href="{{ url('/equipamiento/editar', $equipamiento->id) }}" class="btn btn-warning">Editar</a>
                                             <form action="{{ route('equipamiento.destroy', $equipamiento->id) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que deseas eliminar este equipamiento?')">Eliminar</button>
                                             </form>
+                                        @endrole    
                                         </td>
                                     </tr>
                                 @endforeach

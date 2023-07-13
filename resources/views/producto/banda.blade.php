@@ -15,8 +15,9 @@
             @endif
 
             <h1>Banda</h1>
-
+            @role('administrador')
             <a class="btn btn-success" href="{{ url('/banda/create') }}">Registrar nueva banda</a>
+            @endrole
             <br>
             <br>
             <div class="card">
@@ -26,7 +27,9 @@
                             <th>Imagen</th>
                             <th>Nombre</th>
                             <th>Representante</th>
+                            @role('administrador')
                             <th>Acciones</th>
+                            @endrole
                         </tr>
                     </thead>
                     <tbody>
@@ -37,6 +40,7 @@
                                 <td>{{ $banda->representante->nombre ?? 'Sin representante' }}</td>
 
                                 <td>
+                                @role('administrador')    
                                     <!-- editar -->
                                     <a class="btn btn-warning" href="{{ url('/banda/editar', $banda->id) }}">Editar</a>
 
@@ -47,6 +51,7 @@
                                         @method('DELETE')
                                         <input class="btn btn-danger" type="submit" onclick="return confirm('¿Estás seguro de que deseas borrar esta banda?')" value="Borrar">
                                     </form>
+                                @endrole
                                 </td>
                             </tr>              
                         @endforeach

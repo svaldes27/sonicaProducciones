@@ -2,8 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,8 +24,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        
         $this->registerPolicies();
 
-        //
+        User::created(function ($user) {
+            $role = Role::where('name', 'administrador')->first();
+
+            if ($role) {
+                $user->assignRole($role);
+            }
+        });
+        
     }
 }

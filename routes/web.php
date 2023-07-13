@@ -7,6 +7,9 @@ use App\Http\Controllers\RepresentanteController;
 use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\EventoController;
 use App\Http\Controllers\EquipamientoController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\PermissionController;
+use Spatie\Permission\Models\Role;
 
 
 
@@ -31,6 +34,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
 
+
 Route::get('/home', [LocalController::class, 'index']);
 Route::get('/banda', [BandaController::class, 'index']);
 Route::get('/representante/lista', [RepresentanteController::class, 'index']);
@@ -43,21 +47,6 @@ Route::get('/banda/lista', [BandaController::class, 'lista']);
 Route::delete('/banda/{id}', [BandaController::class, 'destroy'])->name('banda.destroy');
 Route::get('/banda/editar/{id}', [BandaController::class, 'edit']);
 Route::put('/banda/{id}', [BandaController::class, 'update'])->name('banda.update');
-
-
-
-
-
-
-// Rutas del controlador RepresentanteController
-Route::post('/representante', [RepresentanteController::class, 'store'])->name('representante.store');
-Route::get('/representante/create', [RepresentanteController::class, 'create'])->name('representante.create');
-Route::get('/representante/lista', [RepresentanteController::class, 'lista']);
-Route::delete('/representante/{id}', [RepresentanteController::class, 'destroy'])->name('representante.destroy');
-Route::get('/representante/editar/{id}', [RepresentanteController::class, 'edit']);
-Route::put('/representante/{id}', [RepresentanteController::class, 'update'])->name('representante.update');
-
-
 
 
 
@@ -88,6 +77,22 @@ Route::delete('/equipamiento/{id}', [EquipamientoController::class, 'destroy'])-
 Route::get('/equipamiento/editar/{id}', [EquipamientoController::class, 'edit']);
 Route::put('/equipamiento/{id}', [EquipamientoController::class, 'update'])->name('equipamiento.update');
 Route::get('/equipamiento/{id}', [EquipamientoController::class, 'show'])->name('equipamiento.show');
+
+
+
+
+
+
+
+// Rutas del controlador RepresentanteController
+Route::post('/representante', [RepresentanteController::class, 'store'])->name('representante.store');
+Route::get('/representante/create', [RepresentanteController::class, 'create'])->name('representante.create');
+Route::get('/representante/lista', [RepresentanteController::class, 'lista']);
+Route::delete('/representante/{id}', [RepresentanteController::class, 'destroy'])->name('representante.destroy');
+Route::get('/representante/editar/{id}', [RepresentanteController::class, 'edit'])->name('representante.editar');
+Route::put('/representante/{id}', [RepresentanteController::class, 'update'])->name('representante.update');
+
+
 
 
 });

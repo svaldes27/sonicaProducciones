@@ -4,6 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class CreateUsersTable extends Migration
 {
     /**
@@ -20,8 +23,13 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('role')->default('espectador');
+            //$table->string('role')->default('espectador');
             $table->timestamps();
+        });
+
+        // Agregar la columna 'role'
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('role')->default('administrador');
         });
     }
 
@@ -32,6 +40,10 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('role');
+        });
+
         Schema::dropIfExists('users');
     }
 }

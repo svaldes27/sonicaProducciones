@@ -13,8 +13,9 @@
             @endif
 
             <h1>Local</h1>
-    
+            @role('administrador')
             <a class="btn btn-success" href="{{ url('/local/create') }}">Registrar nuevo local</a>
+            @endrole
             <br><br>
             
             <div class="card">
@@ -27,7 +28,9 @@
                             <th>Comuna</th>
                             <th>Provincia</th>
                             <th>Región</th>
+                            @role('administrador')
                             <th>Acciones</th>
+                            @endrole
                         </tr>
                     </thead>
                     <tbody>
@@ -40,7 +43,7 @@
                                 <td>{{ $local->comuna->provincia->region->region_nombre }}</td>
                                 <td>
 
-                                
+                                @role('administrador')
                                     <!-- editar -->
                                     <a class="btn btn-warning" href="{{ url('/local/editar', $local->id) }}">Editar</a>
 
@@ -50,6 +53,7 @@
                                         @method('DELETE')
                                         <input class="btn btn-danger" type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar">
                                     </form>
+                                @endrole    
                                 </td>
                             </tr>              
                         @endforeach

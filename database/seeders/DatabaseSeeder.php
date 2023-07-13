@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // Crear permisos para el rol "administrador"
+        $roleAdmin = Role::where('name', 'administrador')->first();
+        
+        $permissions = [
+            'representante.create',
+            'representante.destroy',
+            'representante.update',
+            'representante.edit',
+        ];
+
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission, 'guard_name' => 'web']);
+            $roleAdmin->givePermissionTo($permission);
+            
+        }
     }
 }

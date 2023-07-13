@@ -16,8 +16,9 @@
             @endif
 
             <h1>Representante</h1>
-
+        @role('administrador')
             <a class="btn btn-success" href="{{ url('/representante/create') }}">Registrar nuevo producto</a>
+        @endrole
             <br>
             <br>
             <div class="card">
@@ -27,7 +28,9 @@
                             <th>Nombre</th>
                             <th>Email</th>
                             <th>Contacto</th>
+                            @role('administrador')
                             <th>Acciones</th>
+                            @endrole
                         </tr>
                     </thead>
                     <tbody>
@@ -37,15 +40,17 @@
                                 <td>{{ $rep->email }}</td>
                                 <td>{{ $rep->contacto }}</td>
                                 <td>
+                                @role('administrador')
                                     <!-- editar -->
                                     <a class="btn btn-warning" href="{{ url('/representante/editar', $rep->id) }}">Editar</a>
-
+                                
                                     <!-- borrar -->
                                     <form action="{{ route('representante.destroy', $rep->id) }}" class="d-inline" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input class="btn btn-danger" type="submit" onclick="return confirm('¿Quieres borrar?')" value="Borrar">
                                     </form>
+                                @endrole    
                                 </td>
                             </tr>
                         @endforeach
