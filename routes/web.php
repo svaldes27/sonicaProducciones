@@ -23,16 +23,6 @@ use Spatie\Permission\Models\Role;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-
-    return view('auth.login');
-})->middleware('guest');
-
-Auth::routes();
-
-//Route::get('/', function () {return view('welcome');});
-Route::middleware(['auth'])->group(function () {
-
 
 
 Route::get('/home', [LocalController::class, 'index']);
@@ -50,7 +40,13 @@ Route::put('/banda/{id}', [BandaController::class, 'update'])->name('banda.updat
 
 
 
-Route::get('/agenda/lista', [AgendaController::class, 'index']);
+Route::get('/agenda/lista', [EventoController::class, 'index']);
+
+Route::post('/agenda/mostrar', [EventoController::class, 'show']);
+Route::post('/agenda/agregar', [EventoController::class, 'store']);
+Route::post('/agenda/editar/{id}', [EventoController::class, 'edit']);
+Route::post('/agenda/modificar/{evento}', [EventoController::class, 'update']);
+Route::post('/agenda/eliminar/{id}', [EventoController::class, 'destroy']);
 
 
 
@@ -93,11 +89,18 @@ Route::get('/representante/editar/{id}', [RepresentanteController::class, 'edit'
 Route::put('/representante/{id}', [RepresentanteController::class, 'update'])->name('representante.update');
 
 
+Route::get('/', function () {
+
+    return view('auth.login');
+})->middleware('guest');
+
+Auth::routes();
+
+//Route::get('/', function () {return view('welcome');});
+Route::middleware(['auth'])->group(function () {
 
 
 });
-
-
 
 
 

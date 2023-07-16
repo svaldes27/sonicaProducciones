@@ -18,8 +18,9 @@ class CreateEventosTable extends Migration
             $table->integer('local_id')->nullable()->unsigned();
             $table->integer('banda_id')->nullable()->unsigned();
             $table->integer('detalleEquipamiento_id')->nullable()->unsigned();
-            $table->time('hora');
-            $table->date('fecha');
+            $table->dateTime('start');
+            //$table->time('hora');
+            //$table->date('fecha');
 
            
         });

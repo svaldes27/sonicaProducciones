@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Evento;
 use Illuminate\Http\Request;
 
 class AgendaController extends Controller
@@ -47,7 +48,8 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        request()->validate(Evento::$rules);
+        $evento=Evento::create($request->all());
     }
 
     /**

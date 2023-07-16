@@ -8,6 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Evento extends Model
 {
     use HasFactory;
+
+    static $rules = [
+
+       'id' => 'required',
+       /*'local_id' => 'required',
+        'banda_id' => 'required',
+        'start' => 'required',
+        'end' => 'required', */
+    ]; 
+
+
+    protected $fillable=['id','local_id','banda_id','start','end'];
     protected $primaryKey = 'id';
     protected $table = 'eventos';
     
